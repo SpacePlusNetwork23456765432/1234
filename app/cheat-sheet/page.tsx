@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd'
 import ReactMarkdown from 'react-markdown'
 
 export default function CheatSheetGenerator() {
@@ -18,7 +18,7 @@ export default function CheatSheetGenerator() {
     localStorage.setItem('cheatSheetSections', JSON.stringify(sections))
   }, [sections])
 
-  const onDragEnd = (result) => {
+  const onDragEnd = (result: DropResult) => {
     if (!result.destination) return
 
     const newSections = Array.from(sections)
@@ -32,7 +32,7 @@ export default function CheatSheetGenerator() {
     setSections([...sections, { id: Date.now().toString(), content: '# New Section' }])
   }
 
-  const updateSection = (id, newContent) => {
+  const updateSection = (id: string, newContent: string) => {
     setSections(sections.map(section => 
       section.id === id ? { ...section, content: newContent } : section
     ))
@@ -111,4 +111,3 @@ export default function CheatSheetGenerator() {
     </div>
   )
 }
-
